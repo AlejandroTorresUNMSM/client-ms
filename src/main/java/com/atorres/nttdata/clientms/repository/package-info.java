@@ -3,4 +3,4 @@
  * @author Alejandro Torres
  * @since 1.0
  */
-package com.atorres.nttdata.client.repository;
+package com.atorres.nttdata.clientms.repository;

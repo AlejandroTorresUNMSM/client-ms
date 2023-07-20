@@ -1,6 +1,6 @@
-package com.atorres.nttdata.client.repository;
+package com.atorres.nttdata.clientms.repository;
 
-import com.atorres.nttdata.client.model.dao.ClientDao;
+import com.atorres.nttdata.clientms.model.dao.ClientDao;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;

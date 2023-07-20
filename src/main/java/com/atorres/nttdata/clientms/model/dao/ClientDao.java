@@ -1,4 +1,4 @@
-package com.atorres.nttdata.client.model.dao;
+package com.atorres.nttdata.clientms.model.dao;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

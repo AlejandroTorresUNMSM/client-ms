@@ -1,11 +1,11 @@
-package com.atorres.nttdata.client.service;
+package com.atorres.nttdata.clientms.service;
 
-import com.atorres.nttdata.client.exception.CustomException;
-import com.atorres.nttdata.client.mapper.ClientMapper;
-import com.atorres.nttdata.client.model.ClientPost;
-import com.atorres.nttdata.client.model.RequestClientUpdate;
-import com.atorres.nttdata.client.model.dao.ClientDao;
-import com.atorres.nttdata.client.repository.ClientRepository;
+import com.atorres.nttdata.clientms.exception.CustomException;
+import com.atorres.nttdata.clientms.mapper.ClientMapper;
+import com.atorres.nttdata.clientms.model.ClientPost;
+import com.atorres.nttdata.clientms.model.RequestClientUpdate;
+import com.atorres.nttdata.clientms.model.dao.ClientDao;
+import com.atorres.nttdata.clientms.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

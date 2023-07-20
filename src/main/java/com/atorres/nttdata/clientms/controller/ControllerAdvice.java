@@ -1,7 +1,7 @@
-package com.atorres.nttdata.client.controller;
+package com.atorres.nttdata.clientms.controller;
 
-import com.atorres.nttdata.client.exception.CustomException;
-import com.atorres.nttdata.client.exception.ErrorDto;
+import com.atorres.nttdata.clientms.exception.CustomException;
+import com.atorres.nttdata.clientms.exception.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

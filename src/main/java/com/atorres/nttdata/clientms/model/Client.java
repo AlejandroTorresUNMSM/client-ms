@@ -1,4 +1,4 @@
-package com.atorres.nttdata.client.model;
+package com.atorres.nttdata.clientms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

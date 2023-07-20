@@ -1,8 +1,8 @@
-package com.atorres.nttdata.client.mapper;
+package com.atorres.nttdata.clientms.mapper;
 
-import com.atorres.nttdata.client.model.ClientPost;
-import com.atorres.nttdata.client.model.RequestClientUpdate;
-import com.atorres.nttdata.client.model.dao.ClientDao;
+import com.atorres.nttdata.clientms.model.ClientPost;
+import com.atorres.nttdata.clientms.model.RequestClientUpdate;
+import com.atorres.nttdata.clientms.model.dao.ClientDao;
 import org.springframework.stereotype.Component;
 
 @Component

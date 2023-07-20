@@ -1,9 +1,9 @@
-package com.atorres.nttdata.client.controller;
+package com.atorres.nttdata.clientms.controller;
 
-import com.atorres.nttdata.client.model.RequestClientUpdate;
-import com.atorres.nttdata.client.service.ClientService;
-import com.atorres.nttdata.client.model.dao.ClientDao;
-import com.atorres.nttdata.client.model.ClientPost;
+import com.atorres.nttdata.clientms.model.RequestClientUpdate;
+import com.atorres.nttdata.clientms.service.ClientService;
+import com.atorres.nttdata.clientms.model.dao.ClientDao;
+import com.atorres.nttdata.clientms.model.ClientPost;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

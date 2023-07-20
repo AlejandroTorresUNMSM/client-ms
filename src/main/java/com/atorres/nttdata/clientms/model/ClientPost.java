@@ -1,4 +1,4 @@
-package com.atorres.nttdata.client.model;
+package com.atorres.nttdata.clientms.model;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.atorres.nttdata.client.exception;
+package com.atorres.nttdata.clientms.exception;
 
 import lombok.Builder;
 import lombok.Data;
