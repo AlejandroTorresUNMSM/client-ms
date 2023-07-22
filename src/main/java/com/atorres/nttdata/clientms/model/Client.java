@@ -1,6 +1,6 @@
 package com.atorres.nttdata.clientms.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.atorres.nttdata.clientms.utils.ClientType;
 import lombok.Data;
 
 @Data
@@ -8,7 +8,6 @@ public class Client {
     /**.
      * Id del cliente
      */
-    @JsonProperty("id")
     private String id;
     /**.
      * Tipos de documento
@@ -17,7 +16,7 @@ public class Client {
     /**.
      * Numero del documento
      */
-    private String nroDocumento;
+    private String nroDocument;
     /**.
      * Nombre del cliente
      */
@@ -25,5 +24,5 @@ public class Client {
     /**.
      * Tipo del cliente
      */
-    private String typeClient;
+    private ClientType typeClient;
 }

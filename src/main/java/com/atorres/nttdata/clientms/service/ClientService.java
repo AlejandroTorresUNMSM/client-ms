@@ -2,10 +2,11 @@ package com.atorres.nttdata.clientms.service;
 
 import com.atorres.nttdata.clientms.exception.CustomException;
 import com.atorres.nttdata.clientms.mapper.ClientMapper;
+import com.atorres.nttdata.clientms.model.Client;
 import com.atorres.nttdata.clientms.model.ClientPost;
 import com.atorres.nttdata.clientms.model.RequestClientUpdate;
-import com.atorres.nttdata.clientms.model.dao.ClientDao;
 import com.atorres.nttdata.clientms.repository.ClientRepository;
+import com.atorres.nttdata.clientms.utils.ClientType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -33,8 +33,9 @@ public class ClientService {
      * Metodo que encuentra todos los clientes
      * @return lista de clientes
      */
-    public Flux<ClientDao> findAll() {
-        return dao.findAll();
+    public Flux<Client> findAll() {
+        return dao.findAll()
+                .map(clientMapper::toClient);
     }
 
     /**.
@@ -42,14 +43,15 @@ public class ClientService {
      * @param id id del cliente
      * @return clientDao
      */
-    public  Mono<ClientDao> findById(final String id) {
+    public  Mono<Client> findById(final String id) {
         //obtengo el cliente por id si no lo encuentra devuelve una excepcion
         return dao.findById(id)
                 .switchIfEmpty(Mono.defer(() -> {
                     log.error("No se encontro al cliente {}", id);
                     return Mono.error(new CustomException(HttpStatus.NOT_FOUND,
                             "No se encontró al cliente"));
-                }));
+                }))
+                .map(clientMapper::toClient);
     }
 
     /**.
@@ -57,17 +59,16 @@ public class ClientService {
      * @param client cliente request
      * @return clienteDao
      */
-    public Mono<ClientDao> save(final ClientPost client) {
+    public Mono<Client> save(final ClientPost client) {
         return dao.findAll()
-                .filter(cl -> !Objects
-                        .equals(cl.getTypeDocument(), client.getTypeDocument())
-                        || !Objects
-                        .equals(cl.getNroDocument(), client.getNroDocument()))
+                .filter(cl -> cl.getTypeDocument().equals(client.getTypeDocument())
+                        && cl.getNroDocument().equals(client.getNroDocument()))
                 .any(cl -> true)
-                .flatMap(exist -> Boolean.FALSE.equals(exist)
-                        ? Mono.error(new CustomException(HttpStatus.BAD_REQUEST,
-                                "Ya existe el nroDocumento y tipo"))
-                        : dao.save(clientMapper.clientposttoClientDao(client)));
+                .flatMap(exist -> Boolean.TRUE.equals(exist)
+                        ?   Mono.error(new CustomException(HttpStatus.BAD_REQUEST,
+                        "Ya existe el nroDocumento y tipo"))
+                        : dao.save(clientMapper.clientposttoClientDao(client)) )
+                .map(clientMapper::toClient);
     }
 
     /**.
@@ -92,15 +93,30 @@ public class ClientService {
      * @param request request del cliente
      * @return ClienteDao
      */
-    public Mono<ClientDao> update(
+    public Mono<Client> update(
             final String id,
             final RequestClientUpdate request) {
-        return dao.findById(id)
-                .switchIfEmpty(
-                        Mono.error(new CustomException(HttpStatus.NOT_FOUND,
-                                "No existe el cliente")))
+        return dao.findAll()
+                .filter(cl -> cl.getTypeDocument().equals(request.getTypeDocument())
+                        && cl.getNroDocument().equals(request.getNroDocument()))
+                .any(cl -> true)
+                .flatMap(exist -> Boolean.TRUE.equals(exist)
+                        ?   Mono.error(new CustomException(HttpStatus.BAD_REQUEST,
+                        "Ya existe el nroDocumento y tipo"))
+                        : dao.findById(id))
                 .map(client -> clientMapper.
                         clientposttoClientDaoUpdate(client, request))
-                .flatMap(client -> dao.save(client));
+                .flatMap(client -> dao.save(client))
+                .map(clientMapper::toClient);
+    }
+
+    public Mono<Client> updateType(String idClient, ClientType clientType){
+        return dao.findById(idClient)
+                .switchIfEmpty(Mono.error(new CustomException(HttpStatus.NOT_FOUND, "No existe el cliente")))
+                .flatMap(cl ->{
+                    cl.setTypeClient(clientType);
+                    return  dao.save(cl);
+                })
+                .map(clientMapper::toClient);
     }
 }

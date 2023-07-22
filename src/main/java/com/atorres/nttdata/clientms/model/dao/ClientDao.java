@@ -1,5 +1,6 @@
 package com.atorres.nttdata.clientms.model.dao;
 
+import com.atorres.nttdata.clientms.utils.ClientType;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,6 +28,6 @@ public class ClientDao {
     /**.
      * Tipo del cliente
      */
-    private String typeClient;
+    private ClientType typeClient;
 
 }

@@ -1,6 +1,9 @@
 package com.atorres.nttdata.clientms.model;
 
+import com.atorres.nttdata.clientms.utils.CreateClientType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -24,7 +27,8 @@ public class ClientPost {
     /**.
      * Tipo del cliente
      */
-    @NotBlank
-    private String typeClient;
+    @NotNull
+    @JsonProperty("typeClient")
+    private CreateClientType typeClient;
 
 }

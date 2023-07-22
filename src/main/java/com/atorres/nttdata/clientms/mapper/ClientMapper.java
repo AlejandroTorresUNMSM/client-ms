@@ -1,12 +1,17 @@
 package com.atorres.nttdata.clientms.mapper;
 
+import com.atorres.nttdata.clientms.model.Client;
 import com.atorres.nttdata.clientms.model.ClientPost;
 import com.atorres.nttdata.clientms.model.RequestClientUpdate;
 import com.atorres.nttdata.clientms.model.dao.ClientDao;
+import com.atorres.nttdata.clientms.utils.EnumConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClientMapper {
+    @Autowired
+    EnumConverter enumConverter;
     /**.
      * Metodo que transforma Clientepost a ClienteDao
      * @param clientPost clientepost
@@ -18,7 +23,7 @@ public class ClientMapper {
         clientDao.setName(clientPost.getName());
         clientDao.setTypeDocument(clientPost.getTypeDocument());
         clientDao.setNroDocument(clientPost.getNroDocument());
-        clientDao.setTypeClient(clientPost.getTypeClient());
+        clientDao.setTypeClient(enumConverter.toClientType(clientPost.getTypeClient()));
         return clientDao;
     }
 
@@ -35,6 +40,16 @@ public class ClientMapper {
         clientDao.setTypeDocument(request.getTypeDocument());
         clientDao.setNroDocument(request.getNroDocument());
         return clientDao;
+    }
+
+    public Client toClient(ClientDao clientDao){
+        Client client = new Client();
+        client.setId(clientDao.getId());
+        client.setName(clientDao.getName());
+        client.setTypeDocument(clientDao.getTypeDocument());
+        client.setNroDocument(clientDao.getNroDocument());
+        client.setTypeClient(clientDao.getTypeClient());
+        return client;
     }
 
     /**.
